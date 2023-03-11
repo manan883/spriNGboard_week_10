@@ -12,50 +12,42 @@ Game::Game ()
 {
   for (int i = 0; i < 50; i++)
   {
-    ostringstream oss(ostringstream::out);
-    oss << "Pop Question " << i;
+    {
+      ostringstream oss(ostringstream::out);
+      oss << "Pop Question " << i;
+      popQuestions.push_back(oss.str());
+    }
 
-    popQuestions.push_back(oss.str());
+    {
+      ostringstream oss(ostringstream::out);
+      oss << "Science Question " << i;
+      scienceQuestions.push_back(oss.str());
+    }
 
-    char str[255];
-    sprintf(str, "Science Question %d", i);
-    scienceQuestions.push_back(str);
+    {
+      ostringstream oss(ostringstream::out);
+      oss << "Sports Question " << i;
+      sportsQuestions.push_back(oss.str());
+    }
 
-    char str1[255];
-    sprintf(str1, "Sports Question %d", i);
-    sportsQuestions.push_back(str1);
-
-    rockQuestions.push_back(createRockQuestion(i));
+    {
+      ostringstream oss(ostringstream::out);
+      oss << "Rock Question " << i;
+      rockQuestions.push_back(oss.str());
+    }
   }
-}
-
-string Game::createRockQuestion (int index)
-{
-  char indexStr[127];
-  sprintf(indexStr, "Rock Question %d", index);
-  return indexStr;
-}
-
-bool Game::isPlayable ()
-{
-  return (howManyPlayers() >= 2);
 }
 
 bool Game::add (string playerName)
 {
   players.push_back(playerName);
-  places[howManyPlayers()] = 0;
-  purses[howManyPlayers()] = 0;
-  inPenaltyBox[howManyPlayers()] = false;
+  places[players.size()] = 0;
+  purses[players.size()] = 0;
+  inPenaltyBox[players.size()] = false;
 
   cout << playerName << " was added" << endl;
   cout << "They are player number " << players.size() << endl;
   return true;
-}
-
-int Game::howManyPlayers ()
-{
-  return players.size();
 }
 
 void Game::roll (int roll)
@@ -103,36 +95,29 @@ void Game::askQuestion ()
     cout << popQuestions.front() << endl;
     popQuestions.pop_front();
   }
-  if (currentCategory() == "Science")
+  else if (currentCategory() == "Science")
   {
     cout << scienceQuestions.front() << endl;
     scienceQuestions.pop_front();
   }
-  if (currentCategory() == "Sports")
+  else if (currentCategory() == "Sports")
   {
     cout << sportsQuestions.front() << endl;
     sportsQuestions.pop_front();
   }
-  if (currentCategory() == "Rock")
+  else if (currentCategory() == "Rock")
   {
     cout << rockQuestions.front() << endl;
     rockQuestions.pop_front();
   }
 }
 
-
 string Game::currentCategory ()
 {
-  if (places[currentPlayer] == 0) return "Pop";
-  if (places[currentPlayer] == 4) return "Pop";
-  if (places[currentPlayer] == 8) return "Pop";
-  if (places[currentPlayer] == 1) return "Science";
-  if (places[currentPlayer] == 5) return "Science";
-  if (places[currentPlayer] == 9) return "Science";
-  if (places[currentPlayer] == 2) return "Sports";
-  if (places[currentPlayer] == 6) return "Sports";
-  if (places[currentPlayer] == 10) return "Sports";
-  return "Rock";
+  vector<string> categories = {
+    "Pop", "Science", "Sports", "Rock"
+  };
+  return categories[places[currentPlayer] % 4];
 }
 
 bool Game::wasCorrectlyAnswered ()
@@ -196,6 +181,6 @@ bool Game::wrongAnswer ()
 
 bool Game::didPlayerWin ()
 {
-  return !(purses[currentPlayer] == 6);
+  return purses[currentPlayer] != 6;
 }
 

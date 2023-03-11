@@ -9,11 +9,8 @@ class Game
   public:
     Game();
 
-    std::string createRockQuestion(int index);
-    bool isPlayable();
     bool add(std::string playerName);
 
-    int howManyPlayers();
     void roll(int roll);
 
     bool wasCorrectlyAnswered();
@@ -38,6 +35,5 @@ class Game
 
     unsigned int currentPlayer;
     bool isGettingOutOfPenaltyBox;
-
 };
 
