@@ -1,7 +1,8 @@
-﻿#include <stdlib.h>
-#include "Game.h"
+﻿#include "Game.h"
 
-static bool notAWinner;
+#include <string>
+
+using namespace std;
 
 int main(int argc, char** argv)
 {
@@ -13,25 +14,26 @@ int main(int argc, char** argv)
     srand(seed);
   }
 
-	Game aGame;
+  Game game;
 
-	aGame.add("Chet");
-	aGame.add("Pat");
-	aGame.add("Sue");
+  game.add("Chet");
+  game.add("Pat");
+  game.add("Sue");
 
-	do
-	{
+  bool not_a_winner = true;
 
-		aGame.roll(rand() % 5 + 1);
+  do
+  {
+    game.roll(rand() % 5 + 1);
 
-		if (rand() % 9 == 7)
-		{
-			notAWinner = aGame.wrongAnswer();
-		}
-		else
-		{
-			notAWinner = aGame.wasCorrectlyAnswered();
-		}
-	} while (notAWinner);
-
+    if (rand() % 9 == 7)
+    {
+      not_a_winner = game.handleIncorrectAnswer();
+    }
+    else
+    {
+      not_a_winner = game.handleCorrectAnswer();
+    }
+  } while (not_a_winner);
 }
+

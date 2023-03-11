@@ -1,48 +1,44 @@
-#include <iostream>
+#pragma once
+
 #include <list>
+#include <string>
 #include <vector>
-using namespace std;
 
-#ifndef GAME_H_
-#define GAME_H_
+class Game
+{
+  public:
+    Game ();
+    Game (Game const & orig) = delete;
+    Game (Game && orig) = delete;
+    Game& operator= (Game const & orig) = delete;
+    Game& operator= (Game && orig) = delete;
+    ~Game () = default;
 
-class Game{
+    bool add (std::string playerName);
 
-		private:
-			vector<string> players;
+    void roll (int roll);
 
-			int places[6];
-			int purses[6];
+    bool handleCorrectAnswer ();
+    bool handleIncorrectAnswer ();
 
-			bool inPenaltyBox[6];
+  private:
+    void askQuestion ();
+    std::string currentCategory ();
+    bool hasPlayerNotWon ();
 
-			list<string> popQuestions;
-			list<string> scienceQuestions;
-			list<string> sportsQuestions;
-			list<string> rockQuestions;
+  private:
+    std::vector<std::string> players;
+    std::vector<int>         places;
+    std::vector<int>         purses;
+    std::vector<bool>        inPenaltyBox;
 
-			unsigned int currentPlayer;
-			bool isGettingOutOfPenaltyBox;
+    std::list<std::string> popQuestions;
+    std::list<std::string> scienceQuestions;
+    std::list<std::string> sportsQuestions;
+    std::list<std::string> rockQuestions;
 
-public:
-	Game();
-	string createRockQuestion(int index);
-	bool isPlayable();
-	bool add(string playerName);
+    unsigned int currentPlayer;
 
-	int howManyPlayers();
-	void roll(int roll);
-
-	private:
-		void askQuestion();
-		string currentCategory();
-
-				public:
-					bool wasCorrectlyAnswered();
-					bool wrongAnswer();
-
-private:
-	bool didPlayerWin();
+    bool isGettingOutOfPenaltyBox;
 };
 
-#endif /* GAME_H_ */
