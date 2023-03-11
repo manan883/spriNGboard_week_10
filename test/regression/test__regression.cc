@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 #include <cstdlib>
 #include <fstream>
@@ -60,7 +61,7 @@ RunResults run_trivia_with_seed (string const seed)
 
 TEST_CASE ("check for regressions against golden data")
 {
-  auto seed = GENERATE(0, 50);
+  auto seed = GENERATE(range(0,50));
   string const seed_str = to_string(seed);
 
   SECTION(seed_str)
@@ -69,5 +70,4 @@ TEST_CASE ("check for regressions against golden data")
     REQUIRE(result.actual == result.golden);
   }
 }
-
 
