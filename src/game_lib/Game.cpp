@@ -128,48 +128,29 @@ string Game::currentCategory ()
 
 bool Game::handleCorrectAnswer ()
 {
-  if (inPenaltyBox[currentPlayer])
-  {
-    if (isGettingOutOfPenaltyBox)
-    {
-      cout << "Answer was correct!!!!" << endl;
-      purses[currentPlayer]++;
-      cout << players[currentPlayer]
-           << " now has "
-           << purses[currentPlayer]
-        <<  " Gold Coins." << endl;
+  bool player_has_not_won = true;
 
-      bool winner = hasPlayerNotWon();
-      currentPlayer++;
-      if (currentPlayer == players.size()) currentPlayer = 0;
-
-      return winner;
-    }
-    else
-    {
-      currentPlayer++;
-      if (currentPlayer == players.size()) currentPlayer = 0;
-      return true;
-    }
+  if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox) {
+    player_has_not_won = true;
   }
   else
   {
-    cout << "Answer was corrent!!!!" << endl;
+    string correct = inPenaltyBox[currentPlayer] ? "correct" : "corrent";
+    cout << "Answer was " << correct << "!!!!" << endl;
+
     purses[currentPlayer]++;
     cout << players[currentPlayer]
          << " now has "
          << purses[currentPlayer]
-         << " Gold Coins."
+         <<  " Gold Coins."
          << endl;
 
-    bool winner = hasPlayerNotWon();
-    currentPlayer++;
-    if (currentPlayer == players.size()) {
-      currentPlayer = 0;
-    }
-
-    return winner;
+    player_has_not_won = hasPlayerNotWon();
   }
+
+  currentPlayer = (currentPlayer + 1) % players.size();
+
+  return player_has_not_won;
 }
 
 bool Game::handleIncorrectAnswer ()
