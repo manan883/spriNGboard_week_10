@@ -156,14 +156,16 @@ bool Game::handleCorrectAnswer ()
 bool Game::handleIncorrectAnswer ()
 {
   cout << "Question was incorrectly answered" << endl;
-  cout << players[currentPlayer] + " was sent to the penalty box" << endl;
+  cout << players[currentPlayer]
+       << " was sent to the penalty box"
+       << endl;
+
   inPenaltyBox[currentPlayer] = true;
 
-  currentPlayer++;
-  if (currentPlayer == players.size()) {
-    currentPlayer = 0;
-  }
-  return true;
+  currentPlayer = (currentPlayer + 1) % players.size();
+
+  bool player_has_not_won = true;
+  return player_has_not_won;
 }
 
 bool Game::hasPlayerNotWon ()
