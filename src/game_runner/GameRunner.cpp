@@ -28,11 +28,11 @@ int main(int argc, char** argv)
 
     if (rand() % 9 == 7)
     {
-      notAWinner = aGame.wrongAnswer();
+      notAWinner = aGame.handleIncorrectAnswer();
     }
     else
     {
-      notAWinner = aGame.wasCorrectlyAnswered();
+      notAWinner = aGame.handleCorrectAnswer();
     }
   } while (notAWinner);
 }

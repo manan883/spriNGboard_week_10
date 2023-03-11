@@ -6,10 +6,14 @@
 using namespace std;
 
 Game::Game ()
-  : places{},
-    purses{},
+  : places(6),
+    purses(6),
+    inPenaltyBox(6),
     currentPlayer(0)
 {
+  // preserve existing bug behavior
+  inPenaltyBox[0] = true;
+
   for (int i = 0; i < 50; i++)
   {
     {
@@ -120,7 +124,7 @@ string Game::currentCategory ()
   return categories[places[currentPlayer] % 4];
 }
 
-bool Game::wasCorrectlyAnswered ()
+bool Game::handleCorrectAnswer ()
 {
   if (inPenaltyBox[currentPlayer])
   {
@@ -166,7 +170,7 @@ bool Game::wasCorrectlyAnswered ()
   }
 }
 
-bool Game::wrongAnswer ()
+bool Game::handleIncorrectAnswer ()
 {
   cout << "Question was incorrectly answered" << endl;
   cout << players[currentPlayer] + " was sent to the penalty box" << endl;

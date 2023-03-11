@@ -13,8 +13,8 @@ class Game
 
     void roll(int roll);
 
-    bool wasCorrectlyAnswered();
-    bool wrongAnswer();
+    bool handleCorrectAnswer();
+    bool handleIncorrectAnswer();
 
   private:
     void askQuestion();
@@ -23,10 +23,9 @@ class Game
 
   private:
     std::vector<std::string> players;
-
-    int  places[6];
-    int  purses[6];
-    bool inPenaltyBox[6];
+    std::vector<int>         places;
+    std::vector<int>         purses;
+    std::vector<bool>        inPenaltyBox;
 
     std::list<std::string> popQuestions;
     std::list<std::string> scienceQuestions;
