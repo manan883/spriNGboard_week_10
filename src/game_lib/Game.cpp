@@ -14,29 +14,29 @@ Game::Game ()
   // preserve existing bug behavior
   inPenaltyBox[0] = true;
 
-  for (int i = 0; i < 50; i++)
+  for (int question_idx=0; question_idx<50; question_idx++)
   {
     {
       ostringstream oss(ostringstream::out);
-      oss << "Pop Question " << i;
+      oss << "Pop Question " << question_idx;
       popQuestions.push_back(oss.str());
     }
 
     {
       ostringstream oss(ostringstream::out);
-      oss << "Science Question " << i;
+      oss << "Science Question " << question_idx;
       scienceQuestions.push_back(oss.str());
     }
 
     {
       ostringstream oss(ostringstream::out);
-      oss << "Sports Question " << i;
+      oss << "Sports Question " << question_idx;
       sportsQuestions.push_back(oss.str());
     }
 
     {
       ostringstream oss(ostringstream::out);
-      oss << "Rock Question " << i;
+      oss << "Rock Question " << question_idx;
       rockQuestions.push_back(oss.str());
     }
   }
@@ -135,6 +135,7 @@ bool Game::handleCorrectAnswer ()
   }
   else
   {
+    // preserve existing bug behavior
     string correct = inPenaltyBox[currentPlayer] ? "correct" : "corrent";
     cout << "Answer was " << correct << "!!!!" << endl;
 

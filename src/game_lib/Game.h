@@ -7,19 +7,24 @@
 class Game
 {
   public:
-    Game();
+    Game ();
+    Game (Game const & orig) = delete;
+    Game (Game && orig) = delete;
+    Game& operator= (Game const & orig) = delete;
+    Game& operator= (Game && orig) = delete;
+    ~Game () = default;
 
-    bool add(std::string playerName);
+    bool add (std::string playerName);
 
-    void roll(int roll);
+    void roll (int roll);
 
-    bool handleCorrectAnswer();
-    bool handleIncorrectAnswer();
+    bool handleCorrectAnswer ();
+    bool handleIncorrectAnswer ();
 
   private:
-    void askQuestion();
-    std::string currentCategory();
-    bool hasPlayerNotWon();
+    void askQuestion ();
+    std::string currentCategory ();
+    bool hasPlayerNotWon ();
 
   private:
     std::vector<std::string> players;
@@ -33,6 +38,7 @@ class Game
     std::list<std::string> rockQuestions;
 
     unsigned int currentPlayer;
+
     bool isGettingOutOfPenaltyBox;
 };
 
