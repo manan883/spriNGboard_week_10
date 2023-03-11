@@ -19,7 +19,7 @@ class Game
   private:
     void askQuestion();
     std::string currentCategory();
-    bool didPlayerWin();
+    bool hasPlayerNotWon();
 
   private:
     std::vector<std::string> players;
