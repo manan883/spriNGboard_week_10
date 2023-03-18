@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 
+#include <functional>
 #include <string>
 
 using namespace std;
@@ -14,26 +15,19 @@ int main(int argc, char** argv)
     srand(seed);
   }
 
-  Game game;
+  BasicBoard board;
 
-  game.add("Chet");
-  game.add("Pat");
-  game.add("Sue");
+  BotPlayer chet("Chet", false);
+  BotPlayer pat("Pat", true);
+  BotPlayer sue("Sue", false);
 
-  bool not_a_winner = true;
+  vector<reference_wrapper<Player>> players;
+  players.emplace_back(ref(chet));
+  players.emplace_back(ref(pat));
+  players.emplace_back(ref(sue));
 
-  do
-  {
-    game.roll(rand() % 5 + 1);
+  Game game(board, players);
 
-    if (rand() % 9 == 7)
-    {
-      not_a_winner = game.handleIncorrectAnswer();
-    }
-    else
-    {
-      not_a_winner = game.handleCorrectAnswer();
-    }
-  } while (not_a_winner);
+  game.play();
 }
 
