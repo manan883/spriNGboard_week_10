@@ -205,21 +205,29 @@ void Game::_handle_player_turn (
   int32_t roll
 )
 {
+  bool const is_getting_out_of_penalty_box = (roll % 2 == 1);
+
   if (cur_player.get_is_in_penalty_box())
   {
-    bool const is_getting_out_of_penalty_box = (roll % 2 == 1);
-
     if (!is_getting_out_of_penalty_box) {
       ostringstream ostr(std::ostringstream::out);
       ostr << cur_player.get_name()
            << " is not getting out of the penalty box"
            << endl;
+      // preserve existing bug behavior
+      if (!cur_player.response_is_correct()) {
+        ostr << "Question was incorrectly answered" << endl;
+        ostr << cur_player.get_name()
+             << " was sent to the penalty box"
+             << endl;
+      }
       _broadcast(ostr.str());
       return;
     }
     else
     {
-      cur_player.set_is_in_penalty_box(false);
+      // preserve existing bug behavior
+      //cur_player.set_is_in_penalty_box(false);
 
       ostringstream ostr(std::ostringstream::out);
       ostr << cur_player.get_name()
@@ -258,7 +266,12 @@ void Game::_handle_player_turn (
     cur_player.increment_purse();
 
     ostringstream ostr(std::ostringstream::out);
-    ostr << "Answer was correct!!!!" << endl;
+    if (cur_player.get_is_in_penalty_box()) {
+      ostr << "Answer was correct!!!!" << endl;
+    }
+    else {
+      ostr << "Answer was corrent!!!!" << endl;
+    }
     ostr << cur_player.get_name()
          << " now has "
          << cur_player.get_purse()
@@ -286,7 +299,13 @@ void Game::_add_players ()
     auto & new_player = m_players[idx].get();
     new_player.set_place_idx(0);
     new_player.set_purse(0);
-    new_player.set_is_in_penalty_box(false);
+
+    if (idx == 0) {
+      new_player.set_is_in_penalty_box(true);
+    }
+    else {
+      new_player.set_is_in_penalty_box(false);
+    }
 
     ostringstream ostr(std::ostringstream::out);
     ostr << new_player.get_name() << " was added" << endl;
