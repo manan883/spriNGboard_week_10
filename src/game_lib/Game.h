@@ -145,9 +145,10 @@ class Game
       int32_t roll
     );
 
+    void _add_players ();
+
   private:
     void _broadcast (std::string const & msg);
-    void _add_players ();
     bool _is_winner ();
     Player & _move_to_next_player ();
 

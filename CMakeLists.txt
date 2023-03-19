@@ -26,7 +26,8 @@ add_test(
     COMMAND $<TARGET_FILE:test__regression>
 )
 
-#add_test(
-#    NAME test__IntervalManager
-#    COMMAND $<TARGET_FILE:test__IntervalManager>
-#)
+add_test(
+    NAME test__Game
+    COMMAND $<TARGET_FILE:test__Game>
+)
+
