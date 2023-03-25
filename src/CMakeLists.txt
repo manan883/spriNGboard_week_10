@@ -1,3 +1,2 @@
-add_subdirectory(game_lib)
-add_subdirectory(game_runner)
+add_subdirectory(bowling_lib)
 

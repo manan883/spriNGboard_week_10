@@ -22,12 +22,7 @@ enable_testing()
 add_subdirectory(test)
 
 add_test(
-    NAME test__regression
-    COMMAND $<TARGET_FILE:test__regression>
-)
-
-add_test(
-    NAME test__Game
-    COMMAND $<TARGET_FILE:test__Game>
+    NAME test__Bowling
+    COMMAND $<TARGET_FILE:test__Bowling>
 )
 
