@@ -2,6 +2,9 @@
 
 namespace Bowling
 {
+class game : public Game
+{
 
+};
 }
 

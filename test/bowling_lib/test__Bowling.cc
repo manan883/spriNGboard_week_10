@@ -2,8 +2,9 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE ("this test will fail")
+TEST_CASE ("this test should pass")
 {
-  REQUIRE(false);
+  Bowling::Game g;
+  REQUIRE(g.isComplete() == true);
 }
 
