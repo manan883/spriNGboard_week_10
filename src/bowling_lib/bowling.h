@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <stdexcept>
 namespace Bowling
 {
   class Game
@@ -23,6 +24,10 @@ namespace Bowling
     void resetBalls(){balls.clear();}
     void resetScore(){score = 0;}
     void calcScore(){
+      if (balls.size() <=1)
+      {
+        throw std::logic_error("Must record balls before calculating scores");
+      }
       if ((balls.at(0) == 10) || (balls.at(0) + balls.at(1) == 10)){  //strike or spare
         score = balls.at(0) + balls.at(1) + balls.at(2);
       }

@@ -6,7 +6,7 @@ TEST_CASE ("this test should pass")
 {
   Bowling::Game g;
     g.setGameStatus(false);
-    WHEN("num_pins for a rolls knocked down is 10")
+    WHEN("strike")
     {
       g.resetBalls();
       g.resetScore();
@@ -16,7 +16,7 @@ TEST_CASE ("this test should pass")
       g.calcScore();
       REQUIRE(g.getScore() == 30);
     }
-    WHEN("pins is 5 and 5")
+    WHEN("spare")
     {
       g.resetBalls();
       g.resetScore();
@@ -26,6 +26,21 @@ TEST_CASE ("this test should pass")
       g.calcScore();
       REQUIRE(g.getScore() == 13);
 
+    }
+    WHEN("Neither strike nor spare")
+    {
+      g.resetBalls();
+      g.resetScore();
+      g.recordBall(2);
+      g.recordBall(3);
+      g.calcScore();
+      REQUIRE(g.getScore() == 5);
+    }
+    WHEN("No balls are recorded and exceptions is thrown")
+    {
+      g.resetBalls();
+      g.resetScore();
+      REQUIRE_THROWS(g.calcScore());
     }
 }
 
