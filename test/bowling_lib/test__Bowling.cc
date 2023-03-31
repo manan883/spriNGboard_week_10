@@ -9,6 +9,8 @@ TEST_CASE ("this test should pass")
     WHEN("num_pins for a rolls knocked down is 10")
     {
       g.resetBalls();
+      g.resetScore();
+      g.recordBall(10);
       g.recordBall(10);
       g.recordBall(10);
       g.calcScore();
@@ -17,6 +19,7 @@ TEST_CASE ("this test should pass")
     WHEN("pins is 5 and 5")
     {
       g.resetBalls();
+      g.resetScore();
       g.recordBall(5);
       g.recordBall(5);
       g.recordBall(3);
