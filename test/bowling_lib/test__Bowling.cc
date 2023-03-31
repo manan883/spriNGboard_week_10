@@ -42,5 +42,30 @@ TEST_CASE ("this test should pass")
       g.resetScore();
       REQUIRE_THROWS(g.calcScore());
     }
+    WHEN("One ball is provided, exception is thrown")
+    {
+      g.resetBalls();
+      g.resetScore();
+      g.recordBall(2);
+      REQUIRE_THROWS(g.calcScore());
+    }
+    WHEN("More than 3 balls are provided, exception is thrown")
+    {
+      g.resetBalls();
+      g.resetScore();
+      g.recordBall(10);
+      g.recordBall(4);
+      g.recordBall(9);
+      g.recordBall(8);
+      REQUIRE_THROWS(g.calcScore());
+    }
+    WHEN("ball recording is negative exception is thrown")
+    {
+      g.resetBalls();
+      g.resetScore();
+      g.recordBall(-1);
+      g.recordBall(2);
+      REQUIRE_THROWS(g.calcScore());
+    }
 }
 

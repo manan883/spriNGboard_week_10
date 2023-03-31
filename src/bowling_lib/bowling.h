@@ -24,15 +24,30 @@ namespace Bowling
     void resetBalls(){balls.clear();}
     void resetScore(){score = 0;}
     void calcScore(){
-      if (balls.size() <=1)
+      if ((balls.size() <=1) || (balls.size() >3))     
       {
         throw std::logic_error("Must record balls before calculating scores");
       }
       if ((balls.at(0) == 10) || (balls.at(0) + balls.at(1) == 10)){  //strike or spare
-        score = balls.at(0) + balls.at(1) + balls.at(2);
+        if ((balls.at(0) < 0) ||(balls.at(1) < 0) || (balls.at(2) < 0)){
+          throw std::logic_error("no negative numbers");
+        }
+        else{
+            score = balls.at(0) + balls.at(1) + balls.at(2);
+        }
+      }
+      else if((balls.at(0) + balls.at(1) <= 10) && ((balls.at(0) + balls.at(1) >= 0) )) {
+        if ((balls.at(0) < 0) ||(balls.at(1) < 0)){
+          throw std::logic_error("no negative numbers");
+        }
+        else{
+          score = balls.at(0) + balls.at(1);
+        }
+
       }
       else{
-        score = balls.at(0) + balls.at(1);
+         throw std::logic_error("SOME BALL RECORDING ERROR");
+
       }
     }
 
